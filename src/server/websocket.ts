@@ -4,7 +4,7 @@
  */
 
 import { Session } from "./session.ts"
-import { AshleyPacket } from "./shared/AshleyPacket.ts"
+import { AshleyPacket } from "@/components/shared/AshleyPacket.ts"
 
 import { IncomingMessage } from "node:http"
 import WebSocket, { WebSocketServer } from "ws"

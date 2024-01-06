@@ -5,11 +5,11 @@
 
 import React from "react"
 
-import { Session } from "../session.ts"
-import Configuration from "../configuration.ts"
+import { Session } from "@/server/session.ts"
+import Configuration from "@/config.ts"
 
-import Header from "../components/Header.tsx"
-import Footer from "../components/Footer.tsx"
+import Header from "../Header.tsx"
+import Footer from "../Footer.tsx"
 
 export default async function Layout({
   session,
@@ -31,7 +31,7 @@ export default async function Layout({
       </head>
       <body>
         <Header config={params.config} />
-        {/*HACK: Have to do this due to components/UniqueContext. */}
+        {/*HACK: Have to do this due to @/components/UniqueContext. */}
         <main dangerouslySetInnerHTML={{ __html: contents }} />
         <Footer config={params.config} />
       </body>

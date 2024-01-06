@@ -4,7 +4,7 @@
  */
 
 // I hope this won't get confusing.
-import { Announcement } from "../announcement.ts"
+import { Announcement } from "@/forums/announcement.ts"
 
 import React from "react"
 

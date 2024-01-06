@@ -3,10 +3,10 @@
  * 05/01/2024
  */
 
-import AshleyServer from "./server.ts"
+import AshleyServer from "./server/server.ts"
 import { ConsoleLogger } from "./logger.ts"
-import { parseargs } from "./arguments.ts"
-import { loadconf } from "./configuration.ts"
+import { parseargs } from "./args.ts"
+import { loadconf } from "./config.ts"
 
 /**
  * Nominally unnecessary since we're a module, but the

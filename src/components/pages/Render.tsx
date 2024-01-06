@@ -3,10 +3,10 @@
  * 05/01/2024
  */
 
-import { Session } from "../session.ts"
-import { BaseLogger } from "../logger.ts"
-import { enterUniqueContext } from "../components/UniqueContext.tsx"
-import Configuration from "../configuration.ts"
+import { Session } from "@/server/session.ts"
+import { BaseLogger } from "@/logger.ts"
+import { enterUniqueContext } from "../UniqueContext.tsx"
+import Configuration from "@/config.ts"
 import Layout from "./Layout.tsx"
 
 import React from "react"

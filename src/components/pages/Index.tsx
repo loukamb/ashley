@@ -3,12 +3,11 @@
  * 05/01/2024
  */
 
-import { Session } from "../session.ts"
+import { Session } from "@/server/session.ts"
+import { getAnnouncements } from "@/forums/announcement.ts"
 
-import { getAnnouncements } from "../announcement.ts"
-
-import Announcement from "../components/Announcement.tsx"
-import Helmet from "../components/Helmet.tsx"
+import Announcement from "../Announcement.tsx"
+import Helmet from "../Helmet.tsx"
 
 export default async function Index({ session }: { session?: Session }) {
   // Retrieve announcements for the index page.

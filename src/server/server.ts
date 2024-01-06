@@ -20,12 +20,12 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 // Essentials for rendering pages.
 import { Session } from "./session.ts"
-import { BaseLogger, ConsoleLogger } from "./logger.ts"
-import Configuration from "./configuration.ts"
-import render from "./pages/Render.tsx" //
+import { BaseLogger, ConsoleLogger } from "../logger.ts"
+import Configuration from "@/config.ts"
+import render from "@/components/pages/Render.tsx" //
 
 // Page templates.
-import Index from "./pages/Index.tsx"
+import Index from "@/components/pages/Index.tsx"
 
 export class AshleyServer {
   instance: FastifyInstance

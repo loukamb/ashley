@@ -3,7 +3,7 @@
  * 05/01/2024
  */
 
-import Configuration from "../configuration.ts"
+import Configuration from "@/config.ts"
 
 export default function Footer({ config }: { config: Configuration }) {
   return (
