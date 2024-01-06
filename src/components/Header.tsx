@@ -8,9 +8,11 @@ import Configuration from "../configuration.ts"
 export default function Header({ config }: { config: Configuration }) {
   return (
     <header>
-      <div id="site-id">
-        <div id="site-name">{config.name}</div>
-        {config.description && <div id="site-desc">{config.description}</div>}
+      <div id="header-contents">
+        <div id="site-id">
+          <div id="site-name">{config.name}</div>
+          {config.description && <div id="site-desc">{config.description}</div>}
+        </div>
       </div>
     </header>
   )

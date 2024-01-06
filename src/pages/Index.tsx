@@ -5,6 +5,18 @@
 
 import { Session } from "../session.ts"
 
+import Helmet from "../components/Helmet.tsx"
+import { getAnnouncements } from "../announcement.ts"
+
 export default async function Index({ session }: { session?: Session }) {
-  return <h1>This is the index</h1>
+  // Retrieve announcements for the index page.
+  const announcements = await getAnnouncements("index")
+
+  return (
+    <>
+      <Helmet>
+        <title>Home page or something</title>
+      </Helmet>
+    </>
+  )
 }

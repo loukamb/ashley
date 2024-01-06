@@ -13,21 +13,26 @@ import Footer from "../components/Footer.tsx"
 
 export default async function Layout({
   session,
-  children,
+  contents,
+  helmet,
   params,
 }: {
   session?: Session
-  children: React.ReactNode
+  helmet: React.ReactNode[]
+  contents: string
   params: { config: Configuration }
 }) {
   return (
     <html lang="en">
       <head>
         <link rel="stylesheet" href="/theme.css" />
+
+        {helmet}
       </head>
       <body>
         <Header config={params.config} />
-        {children}
+        {/*HACK: Have to do this due to components/UniqueContext. */}
+        <main dangerouslySetInnerHTML={{ __html: contents }} />
         <Footer config={params.config} />
       </body>
     </html>
