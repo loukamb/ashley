@@ -1,0 +1,30 @@
+
+/**
+ * Created by Louka MB. <https://github.com/mblouka>
+ * 05/01/2024
+ */
+
+/*
+    Root file for all site styles. This is what
+    themes are based on.
+*/
+
+@use 'colors';
+
+html, body {
+    font-family: sans-serif;
+    padding: 0;
+    margin: 0;
+
+    @media (prefers-color-scheme: dark) {
+        color: colors.$text-dark;
+        background-color: colors.$bg-dark-shade0;
+    }
+
+    @media (prefers-color-scheme: light) {
+        color: colors.$text-light;
+        background-color: colors.$bg-light-shade0;
+    }
+}
+
+

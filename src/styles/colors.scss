@@ -1,0 +1,38 @@
+
+/**
+ * Created by Louka MB. <https://github.com/mblouka>
+ * 05/01/2024
+ */
+
+// Colors. I base them on Tailwind's (https://tailwindcss.com/docs/customizing-colors),
+// however Tailwind isn't actually used in this project. Monochrome shades are based
+// on "Zinc".
+
+// Background shades.
+$bg-dark-shade0: #09090b;
+$bg-dark-shade1: #18181b;
+$bg-dark-shade2: #27272a;
+$bg-dark-shade3: #3f3f46;
+$bg-dark-shade4: #52525b;
+$bg-dark-shade5: #71717a;
+$bg-dark-shade6: #a1a1aa;
+$bg-dark-shade7: #d4d4d8;
+$bg-dark-shade8: #e4e4e7;
+$bg-dark-shade9: #f4f4f5;
+$bg-dark-shade10: #fafafa;
+
+$bg-light-shade10: #09090b;
+$bg-light-shade9: #18181b;
+$bg-light-shade8: #27272a;
+$bg-light-shade7: #3f3f46;
+$bg-light-shade6: #52525b;
+$bg-light-shade5: #71717a;
+$bg-light-shade4: #a1a1aa;
+$bg-light-shade3: #d4d4d8;
+$bg-light-shade2: #e4e4e7;
+$bg-light-shade1: #f4f4f5;
+$bg-light-shade0: #fafafa;
+
+// Text shades.
+$text-light: $bg-light-shade10;
+$text-dark: $bg-dark-shade10;

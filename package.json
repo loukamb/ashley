@@ -1,0 +1,38 @@
+{
+  "name": "ashley",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "start": "node dist/index.js",
+    "build": "node build.mjs",
+    "dev": "node build.mjs dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@csstools/postcss-sass": "^5.1.1",
+    "@types/node": "^20.10.6",
+    "@types/react": "^18.2.46",
+    "@types/react-dom": "^18.2.18",
+    "@types/ws": "^8.5.10",
+    "autoprefixer": "^10.4.16",
+    "cssnano": "^6.0.3",
+    "esbuild": "^0.19.11",
+    "postcss": "^8.4.33",
+    "postcss-nested": "^6.0.1"
+  },
+  "dependencies": {
+    "@fastify/static": "^6.12.0",
+    "bufferutil": "^4.0.8",
+    "chalk": "^5.3.0",
+    "fastify": "^4.25.2",
+    "postgres": "^3.4.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "redis": "^4.6.12",
+    "ws": "^8.16.0"
+  }
+}
