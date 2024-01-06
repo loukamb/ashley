@@ -17,7 +17,7 @@
  */
 const argregex = /\-\-([\w-]+)(?:=(?:"([^"]+)"|([^\s]+)))?/
 
-export default function parseargs() {
+export function parseargs() {
   const obj: Record<string, string> = {}
 
   const args = [...process.argv]

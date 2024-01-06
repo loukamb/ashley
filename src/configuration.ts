@@ -3,6 +3,8 @@
  * 05/01/2024
  */
 
+import { BaseLogger } from "./logger.ts"
+
 import { promises as fs } from "node:fs"
 
 export interface Configuration {
@@ -24,22 +26,14 @@ export interface Configuration {
   // Are we in debug mode?
   readonly debug: boolean
 
-  // Log configuration.
-  readonly log:
-    | "silent"
-    | "console"
-    | {
-        readonly type: "silent" | "console" | "file"
-        readonly file?: string
-      }
-
   // Parsed arguments.
   readonly args: Record<string, string | boolean>
 }
 
 export async function loadconf(
   path: string,
-  args: Record<string, string | boolean>
+  args: Record<string, string | boolean>,
+  logger?: BaseLogger
 ) {
   let configRaw: string | undefined
 
@@ -48,14 +42,11 @@ export async function loadconf(
   } catch {
     // An error has occured, log it but move on in debug mode.
     if (args.debug) {
-      console.debug(
-        "<ashley-loadconf> In debug mode. Default configuration will be used."
-      )
+      logger?.log("dbg", "In debug mode. Default configuration will be used.")
     } else {
-      console.error(
-        "<ashley-loadconf> Configuration is missing. Either create an empty 'ashley.config.json' in this directory, or pass a configuration filepath to '--config'."
+      throw new Error(
+        "Configuration is missing. Either create an empty 'ashley.config.json' in this directory, or pass a configuration filepath to '--config'."
       )
-      process.exit(1)
     }
   }
 
@@ -74,14 +65,6 @@ export async function loadconf(
     throw new Error(
       "'config.port' is NaN. Either your configuration file or --port argument has a non-number value."
     )
-  }
-
-  if (
-    typeof config.log === "object" &&
-    config.log.type === "file" &&
-    typeof config.log.file !== "string"
-  ) {
-    throw new Error("'config.log.file' is not a valid path.")
   }
 
   return config

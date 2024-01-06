@@ -56,9 +56,9 @@ async function watch() {
   let hasBeenCreated = false
 
   const server = () => {
-    const proc = spawn("node", ["./dist/index.js", "--debug"])
-    proc.stdout.on("data", (dt) => console.log(`${dt}`))
-    proc.stderr.on("data", (dt) => console.log(`${dt}`))
+    const proc = spawn("node", ["./dist/index.js", "--debug"], {
+      stdio: "inherit",
+    })
     proc.on("close", () => {
       console.log("/!\\ Debug server restart!")
       server()

@@ -62,9 +62,9 @@ export class AshleyServer {
     this.log.log("info", `Listening on port ${this.config.port}.`)
   }
 
-  constructor(config: Configuration) {
+  constructor(config: Configuration, log?: BaseLogger) {
     this.config = config
-
+    this.log = log ?? new BaseLogger()
     this.instance = fastify() //
 
     // WebSockets. Currently only used for debug but
@@ -76,10 +76,6 @@ export class AshleyServer {
     this.instance.register(fastifyStatic, {
       root: path.join(__dirname, "static"),
     })
-
-    // Setup logger.
-    // TODO: File logs. For now, default to console.
-    this.log = new ConsoleLogger(false, config.debug)
   }
 }
 
