@@ -10,6 +10,9 @@ import fastifyStatic from "@fastify/static"
 // WebSocket stuff.
 import { AshleyWebSockets } from "./websocket.ts"
 
+// Resource stuff.
+import { AshleyResources, loadBasicResources } from "./resources.ts"
+
 // Node stuff.
 import path from "node:path"
 import { fileURLToPath } from "node:url"
@@ -27,6 +30,7 @@ import Index from "./pages/Index.tsx"
 export class AshleyServer {
   instance: FastifyInstance
   ws: AshleyWebSockets
+  resources: AshleyResources
   config: Configuration
   log: BaseLogger
 
@@ -65,12 +69,24 @@ export class AshleyServer {
   constructor(config: Configuration, log?: BaseLogger) {
     this.config = config
     this.log = log ?? new BaseLogger()
-    this.instance = fastify() //
+
+    // Setup the database.
+    // TODO: Actually setup the database.
+
+    // Setup the cache.
+    // TODO: Actually setup the cache.
+
+    // Setup resources.
+    this.resources = new AshleyResources(this)
+    loadBasicResources(this.resources)
 
     // WebSockets. Currently only used for debug but
     // we could use it in the future for things like
     // notifications.
     this.ws = new AshleyWebSockets(this.config.port + 1, this.config.debug)
+
+    // Setup the instance.
+    this.instance = fastify()
 
     // TODO: Maybe setup CDN or some shit.
     this.instance.register(fastifyStatic, {

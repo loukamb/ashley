@@ -3,6 +3,14 @@
  * 05/01/2024
  */
 
+/**
+ * Preferences are configurable website settings that exist outside of the
+ * `ashley.config.json` file. Almost every site parameter must depend on these
+ * preferences for convenience. Preferences also are not resources, and while they
+ * are both subject to caching, they are stored differently and therefore have their
+ * own business logic for retrieval/caching/TTL.
+ */
+
 export class Preferences {
   /**
    * Retrieve configuration `name` from database. If `nocache` is set, it forcefully
