@@ -7,6 +7,7 @@ import { promises as fs } from "node:fs"
 import { spawn } from "node:child_process"
 
 import esbuild from "esbuild"
+import chokidar from "chokidar"
 import { WebSocket } from "ws"
 
 import postcss from "postcss"
@@ -65,6 +66,11 @@ async function watch() {
     })
   }
 
+  // Setup watch to automatically compile static assets when they change.
+  chokidar
+    .watch("./src/styles", { ignoreInitial: true })
+    .on("all", () => staticassets())
+
   const context = await esbuild.context({
     ...base,
     plugins: [
@@ -79,9 +85,6 @@ async function watch() {
               return // No.
             }
 
-            // Prepare static assets.
-            staticassets()
-
             try {
               // WS port during debug is 8082.
               const ashleyWsServer = new WebSocket("ws://localhost:8082", {
@@ -92,6 +95,10 @@ async function watch() {
 
             if (!hasBeenCreated) {
               hasBeenCreated = true
+
+              // Prepare static assets.
+              staticassets()
+
               server()
             }
           })
