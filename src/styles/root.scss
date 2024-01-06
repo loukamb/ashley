@@ -51,4 +51,52 @@ header {
 
 main {
   @include container(true);
+
+  margin-top: 1rem;
+}
+
+#announcements {
+  .announcement {
+    padding: 1rem;
+    position: relative;
+
+    &::after {
+      position: absolute;
+      content: "";
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 0.2rem;
+      background-color: rgba(255, 255, 255, 10%);
+      z-index: 10;
+    }
+
+    &[data-color="info"] {
+      @include on-scheme(
+        background-color,
+        colors.$blue-light,
+        colors.$blue-dark
+      );
+    }
+
+    &[data-color="warning"] {
+      @include on-scheme(
+        background-color,
+        colors.$yellow-light,
+        colors.$yellow-dark
+      );
+    }
+
+    &[data-color="danger"] {
+      @include on-scheme(background-color, colors.$red-light, colors.$red-dark);
+    }
+
+    &:not([data-color]) {
+      @include on-scheme(
+        background-color,
+        colors.$bg-light-shade1,
+        colors.$bg-dark-shade1
+      );
+    }
+  }
 }

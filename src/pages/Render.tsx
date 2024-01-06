@@ -5,10 +5,7 @@
 
 import { Session } from "../session.ts"
 import { BaseLogger } from "../logger.ts"
-import {
-  enterUniqueContext,
-  useUniqueContext,
-} from "../components/UniqueContext.tsx"
+import { enterUniqueContext } from "../components/UniqueContext.tsx"
 import Configuration from "../configuration.ts"
 import Layout from "./Layout.tsx"
 
