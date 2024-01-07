@@ -33,18 +33,18 @@ export const Aqueducts = {
 
 Asynchronous server components (i.e. component functions defined as `async`) are difficult to work with when it comes to hooks. This normally shouldn't be a problem because server components shouldn't have any interactivity, and therefore shouldn't use any hooks, _but_ an important aspect of good React practice is to use [React context](https://react.dev/learn/passing-data-deeply-with-context) in order to avoid prop drilling, which requires the use of the `useContext` hook. The use of asynchronous components also further complicate the use of React context, essentially making the built-in solution impossible.
 
-Ashley solves this problem by implementing [`AsyncContext`](/src/components/AsyncContext.tsx), which exports async-tolerant `createContext` and `useContext` functions. It leverages NodeJS's  [AsyncLocalStorage](https://nodejs.org/api/async_context.html#introduction) to safely create, and retrieve from, thread-local stores. To use asynchronous context, invoke `createContext` in a module to create an asynchronous context, and call `useContext` on its return value to consume the context in an asynchronous component.
+Ashley solves this problem by implementing [`AsyncContext`](/src/components/AsyncContext.tsx), which exports async-tolerant `createAsyncContext` and `useAsyncContext` functions. It leverages NodeJS's  [AsyncLocalStorage](https://nodejs.org/api/async_context.html#introduction) to safely create, and retrieve from, thread-local stores. To use asynchronous context, invoke `createContext` in a module to create an asynchronous context, and call `useContext` on its return value to consume the context in an asynchronous component.
 
 To provide a value, you **must** use the `.enter` function in the context object, passing a value and an asynchronous function, then do all component rendering in the function that you pass. This replaces the use of the `Context.Provider` pseudo-element. Here is an example, based on the behavior in Ashley's SSR logic:
 ```js
 
 import ReactDOMServer from "react-dom/server"
-import { createContext, useContext } from "@/components/AsyncContext.tsx"
+import { createAsyncContext, useAsyncContext } from "@/components/AsyncContext.tsx"
 
-const themeContext = createContext()
+const themeContext = createAsyncContext()
 
 async function MyComponent({}) {
-    const theme = useContext(themeContext)
+    const theme = useAsyncContext(themeContext)
     return (
         <div data-theme={theme}>
             {/* ... */}
