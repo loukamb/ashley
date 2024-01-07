@@ -6,21 +6,25 @@
 import { ComponentChildren } from "preact"
 
 import { Session } from "@/server/session.ts"
+import { ReadonlyPreferences } from "@/server/preferences.ts"
 import Configuration from "@/config.ts"
 
 import Header from "../Header.tsx"
 import Footer from "../Footer.tsx"
+import SonataProperties, { SonataConfig } from "../ssr/SonataProperties.tsx"
 
 export default async function Layout({
   session,
   contents,
   helmet,
+  sonata,
   params,
 }: {
   session?: Session
   helmet: ComponentChildren[]
   contents: string
-  params: { config: Configuration }
+  sonata: SonataConfig
+  params: { config: Configuration; prefs: ReadonlyPreferences }
 }) {
   return (
     <html lang="en">
@@ -33,7 +37,8 @@ export default async function Layout({
         <Header config={params.config} />
         {/*HACK: Have to do this due to @/components/UniqueContext. */}
         <main dangerouslySetInnerHTML={{ __html: contents }} />
-        <Footer config={params.config} />
+        <Footer rules={params.prefs.rules} />
+        <SonataProperties props={sonata} />
       </body>
     </html>
   )

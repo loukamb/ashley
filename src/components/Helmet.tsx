@@ -5,20 +5,25 @@
 
 import { ComponentChildren } from "preact"
 
-import { createAsyncContext, useAsyncContext } from "./AsyncContext.tsx"
+import { RenderContextComposite } from "./pages/Render.tsx"
+import {
+  createAsyncContextSegment,
+  useAsyncContextComposite,
+} from "./AsyncComposite.tsx"
 
 type ReportHelmetChildren = (children: ComponentChildren) => void
 
-export const HelmetContext = createAsyncContext<
+export const HelmetContext = createAsyncContextSegment<
   ReportHelmetChildren | undefined
->()
+>("helmet-context")
 
 /**
  * Add elements to the `<head>` tag. Please be smart and avoid inserting
  * duplicate elements in the head.
  */
 export default function Helmet({ children }: { children: ComponentChildren }) {
-  const helmetReporter = useAsyncContext(HelmetContext)
+  const useAsyncContext = useAsyncContextComposite(RenderContextComposite)
+  const helmetReporter = useAsyncContext(HelmetContext) as ReportHelmetChildren
   if (helmetReporter !== undefined) {
     helmetReporter(children)
   }

@@ -21,6 +21,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 // Essentials for rendering pages.
 import { Session } from "./session.ts"
 import { BaseLogger, ConsoleLogger } from "../logger.ts"
+import { _debugPreferences } from "./preferences.ts"
 import Configuration from "@/config.ts"
 import render from "@/components/pages/Render.tsx" //
 
@@ -34,6 +35,15 @@ export class AshleyServer {
   config: Configuration
   log: BaseLogger
 
+  /**
+   * Retrieve preferences.
+   */
+  async preferences() {
+    // TODO: implement lol
+
+    return _debugPreferences
+  }
+
   async session(req: FastifyRequest): Promise<Session | undefined> {
     // TODO: implement lol
 
@@ -44,12 +54,12 @@ export class AshleyServer {
     type: "index" | "thread" | "category" | "settings" | "modcp" | "admincp",
     session?: Session
   ) {
+    const logger = this.log
+    const config = this.config
+    const prefs = await this.preferences()
+
     if (type === "index") {
-      return await render(
-        Index,
-        { config: this.config, logger: this.log },
-        session
-      )
+      return await render(Index, { config, prefs, logger }, session)
     }
   }
 

@@ -9,6 +9,7 @@
  * is still a hack and involves double work during most uses.
  */
 
+/// #ifdef !BROWSER
 import { AsyncLocalStorage } from "node:async_hooks"
 
 interface ReactAsyncContext<T> {
@@ -21,13 +22,13 @@ export function createAsyncContext<T>(): ReactAsyncContext<T> {
 
   return {
     ctx,
-    enter: async (value: T, fn: () => Promise<void>) =>
-      await ctx.run(value, fn),
+    enter: async (value: T, fn: () => Promise<any>) => ctx.run(value, fn),
   }
 }
 
-export function useAsyncContext<T>(
-  context: ReactAsyncContext<T>
+export function useAsyncContext<T, V extends { ctx: AsyncLocalStorage<T> }>(
+  context: V
 ): T | undefined {
   return context.ctx.getStore()
 }
+/// #endif

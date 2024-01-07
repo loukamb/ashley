@@ -3,28 +3,25 @@
  * 05/01/2024
  */
 
-import Configuration from "@/config.ts"
-
-import Aqueduct from "./Aqueduct.tsx"
+import { Sonata } from "./ssr/Sonata.tsx"
 import Icon from "./Icon.tsx"
 
-export default function Footer({ config }: { config?: Configuration }) {
+export default Sonata(function Footer({ rules }: { rules?: string }) {
   return (
-    <Aqueduct name="footer">
-      <footer id="footer">
-        {/* TODO: Figure out what else to put in here. */}
-        <div id="footer-links">
-          <a
-            href="#"
-            onClick={() => (console.log("lol"), (window.scrollY = 0))}
-          >
-            <Icon inline="true" icon="fluent:arrow-up-20-regular" /> Top
+    <footer id="footer">
+      <div id="footer-links">
+        <a href="#" onClick={() => (console.log("lol"), (window.scrollY = 0))}>
+          <Icon inline="true" icon="fluent:arrow-up-20-regular" /> Top
+        </a>
+        <a href="https://github.com/mblouka/ashley" target="_blank">
+          <Icon inline="true" icon="fluent:code-20-regular" /> Source
+        </a>
+        {rules && (
+          <a href={rules}>
+            <Icon inline="true" icon="fluent:book-globe-20-regular" /> Rules
           </a>
-          <a href="https://github.com/mblouka/ashley" target="_blank">
-            <Icon inline="true" icon="fluent:code-20-regular" /> Source
-          </a>
-        </div>
-      </footer>
-    </Aqueduct>
+        )}
+      </div>
+    </footer>
   )
-}
+})

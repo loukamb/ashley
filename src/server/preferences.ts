@@ -11,16 +11,31 @@
  * own business logic for retrieval/caching/TTL.
  */
 
+/**
+ * Simple object listing all possible preferences.
+ */
+export interface ReadonlyPreferences {
+  /**
+   * If defined, the "Rules" link will appear in the header.
+   */
+  rules?: string
+}
+
+export type PreferenceNames = keyof ReadonlyPreferences
+
 export class Preferences {
   /**
    * Retrieve configuration `name` from database. If `nocache` is set, it forcefully
    * retrieves the configuration value from the database without a cache hit.
    */
-  async get<T>(name: string, nocache?: boolean): Promise<T> {
-    let value: T
+  async get(
+    name: PreferenceNames,
+    nocache?: boolean
+  ): Promise<ReadonlyPreferences[typeof name]> {
+    let value: ReadonlyPreferences[typeof name]
 
     // TODO: Retrieve preference from database/cache.
-    value = undefined as unknown as T
+    value = undefined as unknown as typeof value
 
     return value
   }
@@ -29,7 +44,15 @@ export class Preferences {
    * Sets configuration `name` to `value` in database. This will also
    * update the value in the cache.
    */
-  async set<T>(name: string, value: T) {}
+  async set(name: PreferenceNames, value: ReadonlyPreferences[typeof name]) {}
+}
+
+/**
+ * DEBUG ONLY: Debug preferences for testing.
+ */
+
+export const _debugPreferences: ReadonlyPreferences = {
+  rules: "/link-to-rules",
 }
 
 export default Preferences

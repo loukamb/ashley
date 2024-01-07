@@ -7,6 +7,7 @@ import { promises as fs } from "node:fs"
 import { spawn } from "node:child_process"
 
 import esbuild from "esbuild"
+import esbuildPluginIfdef from "./build-ifdef.mjs"
 import chokidar from "chokidar"
 import { WebSocket } from "ws"
 
@@ -60,7 +61,15 @@ async function build() {
   await staticassets()
 
   // Build code.
-  await esbuild.build(base)
+  await esbuild.build({
+    ...templates.server,
+    plugins: [esbuildPluginIfdef({ variables: { BROWSER: false } })],
+  })
+
+  await esbuild.build({
+    ...templates.client,
+    plugins: [esbuildPluginIfdef({ variables: { BROWSER: true } })],
+  })
 }
 
 async function watch() {
@@ -114,12 +123,12 @@ async function watch() {
 
   const serverContext = await esbuild.context({
     ...templates.server,
-    plugins: [notify],
+    plugins: [notify, esbuildPluginIfdef({ variables: { BROWSER: false } })],
   })
 
   const clientContext = await esbuild.context({
     ...templates.client,
-    plugins: [notify],
+    plugins: [notify, esbuildPluginIfdef({ variables: { BROWSER: true } })],
   })
 
   await Promise.all([serverContext.watch(), clientContext.watch()])
