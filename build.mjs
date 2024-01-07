@@ -15,13 +15,23 @@ import psass from "@csstools/postcss-sass"
 import cssnano from "cssnano"
 import autoprefixer from "autoprefixer"
 
-const base = {
-  entryPoints: ["./src/index.ts"],
-  outdir: "./dist",
-  format: "esm",
-  platform: "node",
-  packages: "external",
-  bundle: true,
+const templates = {
+  server: {
+    entryPoints: ["./src/index.ts"],
+    outdir: "./dist",
+    format: "esm",
+    platform: "node",
+    packages: "external",
+    bundle: true,
+  },
+
+  client: {
+    entryPoints: ["./src/client/index.ts"],
+    outdir: "./dist/static/",
+    format: "esm",
+    platform: "browser",
+    bundle: true,
+  },
 }
 
 /**
@@ -66,48 +76,53 @@ async function watch() {
     })
   }
 
+  const notify = {
+    name: "rebuild-notify",
+    setup(build) {
+      build.onEnd((results) => {
+        if (results.errors.length > 0) {
+          for (const err of results.errors) {
+            console.error(err)
+          }
+          return // No.
+        }
+
+        try {
+          // WS port during debug is 8082.
+          const ashleyWsServer = new WebSocket("ws://localhost:8082", {
+            headers: { command: "debug-kill" },
+          })
+          ashleyWsServer.onerror = () => {}
+        } catch {}
+
+        if (!hasBeenCreated) {
+          hasBeenCreated = true
+
+          // Prepare static assets.
+          staticassets()
+
+          server()
+        }
+      })
+    },
+  }
+
   // Setup watch to automatically compile static assets when they change.
   chokidar
     .watch("./src/styles", { ignoreInitial: true })
     .on("all", () => staticassets())
 
-  const context = await esbuild.context({
-    ...base,
-    plugins: [
-      {
-        name: "rebuild-notify",
-        setup(build) {
-          build.onEnd((results) => {
-            if (results.errors.length > 0) {
-              for (const err of results.errors) {
-                console.error(err)
-              }
-              return // No.
-            }
-
-            try {
-              // WS port during debug is 8082.
-              const ashleyWsServer = new WebSocket("ws://localhost:8082", {
-                headers: { command: "debug-kill" },
-              })
-              ashleyWsServer.onerror = () => {}
-            } catch {}
-
-            if (!hasBeenCreated) {
-              hasBeenCreated = true
-
-              // Prepare static assets.
-              staticassets()
-
-              server()
-            }
-          })
-        },
-      },
-    ],
+  const serverContext = await esbuild.context({
+    ...templates.server,
+    plugins: [notify],
   })
 
-  await context.watch()
+  const clientContext = await esbuild.context({
+    ...templates.client,
+    plugins: [notify],
+  })
+
+  await Promise.all([serverContext.watch(), clientContext.watch()])
 }
 
 ;(process.argv.includes("dev") ? watch : build)().catch(console.error)

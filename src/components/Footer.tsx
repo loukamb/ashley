@@ -6,9 +6,5 @@
 import Configuration from "@/config.ts"
 
 export default function Footer({ config }: { config: Configuration }) {
-  return (
-    <footer>
-      <div id="site-name">Ashley Placeholder</div>
-    </footer>
-  )
+  return <footer>{/* TODO: Figure out what to put in here. */}</footer>
 }

@@ -26,7 +26,7 @@ export default async function Layout({
     <html lang="en">
       <head>
         <link rel="stylesheet" href="/theme.css" />
-
+        <script src="/index.js" defer />
         {helmet}
       </head>
       <body>
