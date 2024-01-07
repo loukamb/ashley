@@ -20,6 +20,9 @@ dependencies:
   fastify:
     specifier: ^4.25.2
     version: 4.25.2
+  iconify-icon:
+    specifier: ^1.0.8
+    version: 1.0.8
   postgres:
     specifier: ^3.4.3
     version: 3.4.3
@@ -334,6 +337,10 @@ packages:
       fastify-plugin: 4.5.1
       glob: 8.1.0
       p-limit: 3.1.0
+    dev: false
+
+  /@iconify/types@2.0.0:
+    resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
     dev: false
 
   /@lukeed/ms@2.0.2:
@@ -944,6 +951,12 @@ packages:
       setprototypeof: 1.2.0
       statuses: 2.0.1
       toidentifier: 1.0.1
+    dev: false
+
+  /iconify-icon@1.0.8:
+    resolution: {integrity: sha512-jvbUKHXf8EnGGArmhlP2IG8VqQLFFyTvTqb9LVL2TKTh7/eCCD1o2HHE9thpbJJb6B8hzhcFb6rOKhvo7reNKA==}
+    dependencies:
+      '@iconify/types': 2.0.0
     dev: false
 
   /ieee754@1.2.1:

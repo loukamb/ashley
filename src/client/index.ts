@@ -7,8 +7,8 @@
  * Entrypoint for client-side JavaScript.
  */
 
+import "iconify-icon"
 import { hydrate } from "preact"
-
 import { Aqueducts } from "@/components/Aqueduct.tsx"
 
 /**

@@ -6,6 +6,7 @@
 import Configuration from "@/config.ts"
 
 import Aqueduct from "./Aqueduct.tsx"
+import Icon from "./Icon.tsx"
 
 export default function Footer({ config }: { config?: Configuration }) {
   return (
@@ -17,10 +18,10 @@ export default function Footer({ config }: { config?: Configuration }) {
             href="#"
             onClick={() => (console.log("lol"), (window.scrollY = 0))}
           >
-            Top
+            <Icon icon="fluent:arrow-up-20-regular" /> Top
           </a>
           <a href="https://github.com/mblouka/ashley" target="_blank">
-            Source
+            <Icon icon="fluent:code-20-regular" /> Source
           </a>
         </div>
       </footer>
