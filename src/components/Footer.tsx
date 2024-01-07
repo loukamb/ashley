@@ -18,10 +18,10 @@ export default function Footer({ config }: { config?: Configuration }) {
             href="#"
             onClick={() => (console.log("lol"), (window.scrollY = 0))}
           >
-            <Icon icon="fluent:arrow-up-20-regular" /> Top
+            <Icon inline="true" icon="fluent:arrow-up-20-regular" /> Top
           </a>
           <a href="https://github.com/mblouka/ashley" target="_blank">
-            <Icon icon="fluent:code-20-regular" /> Source
+            <Icon inline="true" icon="fluent:code-20-regular" /> Source
           </a>
         </div>
       </footer>

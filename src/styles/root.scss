@@ -3,9 +3,10 @@
  * 05/01/2024
  */
 
-@use "colors";
+@use "preflight" as *;
 @use "container" as *;
 @use "scheme" as *;
+@use "colors";
 
 html,
 body {
@@ -13,7 +14,8 @@ body {
   padding: 0;
   margin: 0;
 
-  min-width: 100vw;
+  min-width: 100%;
+  max-width: 100%;
   min-height: 100vh;
 
   @include on-scheme(color, colors.$text-light, colors.$text-dark);
@@ -49,10 +51,44 @@ header {
   }
 }
 
+footer {
+  display: flex;
+  padding: 1rem;
+
+  @include on-scheme(
+    background-color,
+    colors.$bg-light-shade1,
+    colors.$bg-dark-shade1
+  );
+
+  #footer-links {
+    display: flex;
+    gap: 1rem;
+    margin-left: auto;
+
+    a {
+      @include on-scheme(color, colors.$text-light, colors.$text-dark);
+      opacity: 50%;
+      transition: 100ms opacity;
+
+      &:hover {
+        opacity: 100%;
+      }
+    }
+  }
+}
+
 main {
   @include container(true);
 
   margin-top: 1rem;
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+
+  @include on-scheme(color, colors.$link-light, colors.$link-dark);
 }
 
 #announcements {
