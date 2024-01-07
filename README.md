@@ -7,6 +7,7 @@
 
 - [Overview](#overview)
 - [Development](#development)
+- [Roadmap](#roadmap)
 - [Philosophy](#philosophy)
 - [License](#license)
 
@@ -29,6 +30,10 @@ Ashley is free, extensible, public domain, general purpose forum software. It im
 After cloning this repository, you can launch the development server using `npm run dev` (or, preferably, `pnpm dev` if you have [`pnpm`](https://pnpm.io/) installed). The server will automatically restart when any code or stylesheet change is detected. You can build the server with `npm run build`/`pnpm build`. It can be started with `npm run start`/`pnpm start`.
 
 I highly recommend checking out the [development help](DEVELOPMENT.md) document to better understand how Ashley's internals work. A lot of heterodox React techniques are used that may be unfamiliar to the traditional React developer.
+
+# Roadmap
+
+We use the [issue tracker](https://github.com/mblouka/ashley/issues) as the roadmap.
 
 # Philosophy
 
