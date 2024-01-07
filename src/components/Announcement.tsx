@@ -6,19 +6,19 @@
 // I hope this won't get confusing.
 import { Announcement } from "@/forums/announcement.ts"
 
-import React from "react"
+import { ComponentChildren } from "preact"
 
 export default function Announcement({
   children,
   color,
   href,
 }: {
-  children: React.ReactNode
+  children: ComponentChildren
   color?: string
   href?: string
 }) {
   return (
-    <div className="announcement" data-color={color}>
+    <div class="announcement" data-color={color}>
       {(() => {
         if (href !== undefined) {
           return <a href={href}>{children}</a>

@@ -3,11 +3,11 @@
  * 06/01/2024
  */
 
-import React from "react"
+import { ComponentChildren } from "preact"
 
 import { createAsyncContext, useAsyncContext } from "./AsyncContext.tsx"
 
-type ReportHelmetChildren = (children: React.ReactNode) => void
+type ReportHelmetChildren = (children: ComponentChildren) => void
 
 export const HelmetContext = createAsyncContext<
   ReportHelmetChildren | undefined
@@ -17,7 +17,7 @@ export const HelmetContext = createAsyncContext<
  * Add elements to the `<head>` tag. Please be smart and avoid inserting
  * duplicate elements in the head.
  */
-export default function Helmet({ children }: { children: React.ReactNode }) {
+export default function Helmet({ children }: { children: ComponentChildren }) {
   const helmetReporter = useAsyncContext(HelmetContext)
   if (helmetReporter !== undefined) {
     helmetReporter(children)

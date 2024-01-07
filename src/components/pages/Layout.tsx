@@ -3,14 +3,13 @@
  * 05/01/2024
  */
 
-import React from "react"
+import { ComponentChildren } from "preact"
 
 import { Session } from "@/server/session.ts"
 import Configuration from "@/config.ts"
 
 import Header from "../Header.tsx"
 import Footer from "../Footer.tsx"
-import Aqueduct from "../Aqueduct.tsx"
 
 export default async function Layout({
   session,
@@ -19,7 +18,7 @@ export default async function Layout({
   params,
 }: {
   session?: Session
-  helmet: React.ReactNode[]
+  helmet: ComponentChildren[]
   contents: string
   params: { config: Configuration }
 }) {

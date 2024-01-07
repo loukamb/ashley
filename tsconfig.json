@@ -6,6 +6,7 @@
         "moduleResolution": "NodeNext",
         "allowImportingTsExtensions": true,
         "jsx": "react-jsx",
+        "jsxImportSource": "preact",
 
         "baseUrl": ".",
         "paths": {

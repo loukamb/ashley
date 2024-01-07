@@ -7,13 +7,13 @@
  * Entrypoint for client-side JavaScript.
  */
 
-import { hydrateRoot } from "react-dom/client"
+import { hydrate } from "preact"
 
 import { Aqueducts } from "@/components/Aqueduct.tsx"
 
 /**
  * This is an empty web component used to selectively hydrate
- * portions of the webpage. Efficient? Not really, but React
+ * portions of the webpage. Efficient? Not really, but (p)react
  * is stupid and doesn't allow per-element hydration.
  */
 class AshleyHydrationRoot extends HTMLElement {
@@ -28,7 +28,7 @@ customElements.define("ashley-aqueduct", AshleyHydrationRoot)
  * TODO: Invoke getParams for _each_ component? Would that be
  * overkill for our purposes/too heavy?
  */
-async function hydrate() {
+async function doHydrate() {
   for (const [name, { Component, getParams }] of Object.entries(Aqueducts)) {
     ;(async () => {
       let params = undefined
@@ -39,10 +39,10 @@ async function hydrate() {
       // Find all the roots with the name.
       const roots = document.querySelectorAll(`ashley-aqueduct[name=${name}]`)
       for (const root of roots) {
-        hydrateRoot(root, Component(params ?? {}))
+        hydrate(Component(params ?? {}), root)
       }
     })().catch(console.error)
   }
 }
 
-hydrate().catch(console.error)
+doHydrate().catch(console.error)

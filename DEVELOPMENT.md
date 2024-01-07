@@ -1,8 +1,10 @@
 # Development help
 
+> 💡 This document may refer to React, but note that Ashley uses preact instead. "React" is mainly used to describe the practices associated with JSX, which are most commonly associated with the React library.
+
 ## Server-side rendering
 
-Ashley uses React for the interface, but avoids SPA-ness by rendering all content on the server first through bog standard SSR. Afterwards, content on the page is _selectively_ hydrated using Ashley's [aqueducts](https://en.wikipedia.org/wiki/Aqueduct_(water_supply)) on the server and the `<ashley-aqueduct/>` web component on the client. Only the portions of the page that actually need interactivity enter React's management and everything else is purely static.
+Ashley uses [preact](https://preactjs.com/) for the interface, but avoids SPA-ness by rendering all content on the server first through bog standard SSR. Afterwards, content on the page is _selectively_ hydrated using Ashley's [aqueducts](https://en.wikipedia.org/wiki/Aqueduct_(water_supply)) on the server and the `<ashley-aqueduct/>` web component on the client. Only the portions of the page that actually need interactivity enter React's management and everything else is purely static.
 
 ### Building an interactive component
 
@@ -38,7 +40,7 @@ Ashley solves this problem by implementing [`AsyncContext`](/src/components/Asyn
 To provide a value, you **must** use the `.enter` function in the context object, passing a value and an asynchronous function, then do all component rendering in the function that you pass. This replaces the use of the `Context.Provider` pseudo-element. Here is an example, based on the behavior in Ashley's SSR logic:
 ```js
 
-import ReactDOMServer from "react-dom/server"
+import { renderToString } from "preact-render-to-string"
 import { createAsyncContext, useAsyncContext } from "@/components/AsyncContext.tsx"
 
 const themeContext = createAsyncContext()
@@ -59,9 +61,37 @@ async function renderMyComponent() {
     await themeContext.enter("dark", async () => {
         // Asynchronous components must be called manually.
         const componentValue = await MyComponent({})
-        renderedString = ReactDOMServer.renderToString(componentValue)
+        renderedString = renderToString(componentValue)
     })
 
     return renderedString
 }
 ```
+
+### React vs. Preact
+
+Ashley does not make use of the standard React library. Instead, the `preact` library is used, which is significantly tinier while offering more or less the same feature set and workflow as React. This is important, especially since we ship some reactivity to the client (and shipping React increases the bundle size by _a lot_).
+
+Certain patterns may need to be changed if you are a React developer. While most of your JSX work will remain the same, you will have to mentally "rebind" some types and properties. Here's a few examples:
+
+- `className` → `class`
+  - React's JSX implementation doesn't allow the use of `class` attributes directly due to potential syntax conflicts with JavaScript (they also do this with `for`, for which they mandate the ugly `htmlFor`). However, this problem is only hypothetical and doesn't even exist because JSX parsers are, for the most part, intelligently written. Preact knows this and allows JSX to use `class` directly, as well as a bunch of other attributes that React forbids. [See here for details.](https://preactjs.com/guide/v10/differences-to-react#raw-html-attributeproperty-names)
+- `React.ReactNode` → `ComponentChildren`
+  - **React**:
+    ```jsx
+    import React from "react"
+
+    function Component({ children }: { children: React.ReactNode }) {
+        return <div>{children}</div>
+    }
+    ```
+  - **preact**:
+    ```jsx
+    import { ComponentChildren } from "preact"
+
+    function Component({ children }: { children: ComponentChildren }) {
+        return <div>{children}</div>
+    }
+    ```
+- `import { useState, ... } from "react"` → `import { useState, ... } from "preact/hooks"`
+  - All hooks are found in `preact/hooks` instead of the main module. 
