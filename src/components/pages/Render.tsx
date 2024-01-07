@@ -5,7 +5,9 @@
 
 import { Session } from "@/server/session.ts"
 import { BaseLogger } from "@/logger.ts"
-import { enterUniqueContext } from "../UniqueContext.tsx"
+
+import { HelmetContext } from "../Helmet.tsx"
+
 import Configuration from "@/config.ts"
 import Layout from "./Layout.tsx"
 
@@ -32,14 +34,12 @@ export default async function render<T extends AshleyPageComponent>(
   // HACK: Double work, but implements reliable & fast context in async SSR. If someone has
   // a better solution that isn't racey and doesn't rely on AsyncLocalStorage, please let me know.
   let torender: JSX.Element
-  await enterUniqueContext(
-    async () => {
-      const contents = ReactDOMServer.renderToString(
-        (await Page({ session, params })) as JSX.Element
-      )
-      torender = await Layout({ session, params, helmet, contents })
-    },
-    { helmet: reporter }
-  )
+  await HelmetContext.enter(reporter, async () => {
+    const contents = ReactDOMServer.renderToString(
+      (await Page({ session, params })) as JSX.Element
+    )
+    torender = await Layout({ session, params, helmet, contents })
+  })
+
   return ReactDOMServer.renderToString(torender!)
 }

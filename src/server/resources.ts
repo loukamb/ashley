@@ -1,3 +1,8 @@
+/**
+ * Created by Louka MB. <https://github.com/mblouka>
+ * 06/01/2024
+ */
+
 import { AshleyServer } from "./server.ts"
 
 type ResourceRetriever = (id: string, params?: any) => Promise<any>
