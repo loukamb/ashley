@@ -6,6 +6,7 @@
 ### Table of Contents
 
 - [Overview](#overview)
+- [Development](#development)
 - [Philosophy](#philosophy)
 - [License](#license)
 
@@ -22,6 +23,12 @@ Ashley is free, extensible, public domain, general purpose forum software. It im
 - **Reproducible.** Everything in your forum can be exported to a single reproducible forum state that can be re-deployed with `ashleyforums import`.
 - **Customizable.** The entirety of the site's look and feel is defined through stylesheets. Multiple themes can be installed and selected by users.
 - **Private.** Individual content groups (such as private messages) can be configured to be cryptographically encrypted. Any and all data logging can be disabled.
+
+# Development
+
+After cloning this repository, you can launch the development server using `npm run dev` (or, preferably, `pnpm dev` if you have [`pnpm`](https://pnpm.io/) installed). The server will automatically restart when any code or stylesheet change is detected. You can build the server with `npm run build`/`pnpm build`. It can be started with `npm run start`/`pnpm start`.
+
+I highly recommend checking out the [development help](DEVELOPMENT.md) document to better understand how Ashley's internals work. A lot of heterodox React techniques are used that may be unfamiliar to the traditional React developer.
 
 # Philosophy
 

@@ -10,6 +10,7 @@ import Configuration from "@/config.ts"
 
 import Header from "../Header.tsx"
 import Footer from "../Footer.tsx"
+import Aqueduct from "../Aqueduct.tsx"
 
 export default async function Layout({
   session,

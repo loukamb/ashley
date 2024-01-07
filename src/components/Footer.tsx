@@ -5,6 +5,25 @@
 
 import Configuration from "@/config.ts"
 
-export default function Footer({ config }: { config: Configuration }) {
-  return <footer>{/* TODO: Figure out what to put in here. */}</footer>
+import Aqueduct from "./Aqueduct.tsx"
+
+export default function Footer({ config }: { config?: Configuration }) {
+  return (
+    <Aqueduct name="footer">
+      <footer id="footer">
+        {/* TODO: Figure out what else to put in here. */}
+        <div id="footer-links">
+          <a
+            href="#"
+            onClick={() => (console.log("lol"), (window.scrollY = 0))}
+          >
+            Top
+          </a>
+          <a href="https://github.com/mblouka/ashley" target="_blank">
+            Source
+          </a>
+        </div>
+      </footer>
+    </Aqueduct>
+  )
 }
