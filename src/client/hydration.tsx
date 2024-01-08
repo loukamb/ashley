@@ -98,9 +98,7 @@ export default function sonataHydrateComponents() {
         )
       }
 
-      console.log(`start ${name}`)
       hydrate(<Component {...(params ?? {})} />, root)
-      console.log(`end ${name}`)
     }
   }
 }
