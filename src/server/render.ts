@@ -50,8 +50,19 @@ export default async function render<T extends AshleyPageComponent>(
 
   // Prepare sonata props.
   const sonata: SonataConfig = {}
-  const sonataReporter = (name: string, props: SonataComponentProperties) =>
-    (sonata[name] = props)
+  const sonataIds: Record<string, number> = {}
+  const sonataReporter = (name: string, props: SonataComponentProperties) => {
+    const id = (sonataIds[name] ||= 0)
+    sonataIds[name]++
+
+    // Create array if it doesn't exist.
+    const sonataPropList = sonata[name] ?? []
+    sonataPropList.push({ id, props })
+    sonata[name] = sonataPropList
+
+    // Return current id.
+    return id
+  }
 
   // HACK: Double work, but implements reliable & fast context in async SSR. If someone has
   // a better solution that isn't racey and doesn't rely on AsyncLocalStorage, please let me know.

@@ -10,7 +10,7 @@
 
 import { FunctionComponent } from "preact"
 
-import isBrowser from "./IsBrowser.ts"
+import isBrowser from "../shared/IsBrowser.ts"
 
 /// #ifdef !BROWSER
 import { RenderContextComposite } from "@/server/render.ts"
@@ -26,7 +26,10 @@ import { SonataComponentProperties } from "./SonataProperties.tsx"
  * Function that reports to the context which parameters need to be passed
  * down to the client.
  */
-type SonataReporter = (name: string, params: SonataComponentProperties) => void
+type SonataReporter = (
+  name: string,
+  params: SonataComponentProperties
+) => number
 
 /**
  * Used to store the current reporter.
@@ -57,9 +60,15 @@ export function Sonata<Props extends object>(
           "SonataReporter is missing. Component will not be hydratable on the client."
         )
       }
-      sonataReporter(component.name, props as SonataComponentProperties)
+
+      // Retrieve ID for this component.
+      const allocId = sonataReporter(
+        component.name,
+        props as SonataComponentProperties
+      )
+
       return (
-        <SonataAqueduct name={component.name}>
+        <SonataAqueduct id={allocId} name={component.name}>
           {component(props)}
         </SonataAqueduct>
       )

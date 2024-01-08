@@ -8,8 +8,11 @@
  * retrieve props for each component's aqueduct hydration.
  */
 
-export type SonataComponentProperties = Record<string, string | number>
-export type SonataConfig = Record<string, SonataComponentProperties>
+export type SonataComponentProperties = Record<string, any>
+export type SonataConfig = Record<
+  string,
+  [{ id: number; props: SonataComponentProperties }]
+>
 
 export default function SonataProperties({ props }: { props: SonataConfig }) {
   // @ts-ignore

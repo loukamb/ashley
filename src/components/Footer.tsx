@@ -3,10 +3,11 @@
  * 05/01/2024
  */
 
-import { Sonata } from "./ssr/Sonata.tsx"
 import Icon from "./Icon.tsx"
 
-export default Sonata(function Footer({ rules }: { rules?: string }) {
+import { Sonata } from "./ssr/Sonata.tsx"
+
+function Footer({ rules }: { rules?: string }) {
   return (
     <footer id="footer">
       <div id="footer-links">
@@ -24,4 +25,7 @@ export default Sonata(function Footer({ rules }: { rules?: string }) {
       </div>
     </footer>
   )
-})
+}
+
+// Allow client hydration.
+export default Sonata(Footer)

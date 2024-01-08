@@ -17,6 +17,11 @@ export interface Section {
   readonly name: string
 
   /**
+   * Color of section. Optional.
+   */
+  readonly color?: string
+
+  /**
    * Description of section. Optional.
    */
   readonly description?: string
@@ -28,9 +33,9 @@ export interface Section {
   readonly icon?: string
 
   /**
-   * Children sections.
+   * Children sections. Optional, must be joined in the db query.
    */
-  readonly sections: Section[]
+  readonly sections?: Section[]
 
   /**
    * Sticky threads. Optional, must be joined in the db query.

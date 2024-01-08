@@ -3,24 +3,28 @@
  * 07/01/2024
  */
 
+// @ts-nocheck
+
 import { ComponentChildren, JSX } from "preact"
 
-import isBrowser from "./IsBrowser.ts"
+import isBrowser from "../shared/IsBrowser.ts"
 
 export default function SonataAqueduct({
+  id,
   name,
   children,
 }: {
+  id: number
   name: string
   children: ComponentChildren
 }): JSX.Element {
   if (isBrowser()) {
-    // @ts-ignore
     return children
   } else {
     return (
-      // @ts-ignore
-      <ashley-sonata-aqueduct name={name}>{children}</ashley-sonata-aqueduct>
+      <ashley-sonata-aqueduct id={id} name={name}>
+        {children}
+      </ashley-sonata-aqueduct>
     )
   }
 }

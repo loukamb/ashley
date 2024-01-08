@@ -14,7 +14,7 @@ import { AsyncLocalStorage } from "node:async_hooks"
 
 interface ReactAsyncContext<T> {
   readonly ctx: AsyncLocalStorage<T>
-  readonly enter: (value: T, fn: () => Promise<void>) => Promise<void>
+  readonly enter: (value: T, fn: () => Promise<any>) => Promise<void>
 }
 
 export function createAsyncContext<T>(): ReactAsyncContext<T> {

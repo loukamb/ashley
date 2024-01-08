@@ -8,6 +8,6 @@
  */
 
 import "iconify-icon"
-import sonataHydrateComponents from "@/components/ssr/client/SonataHydration.tsx"
+import sonataHydrateComponents from "./hydration.ts"
 
 sonataHydrateComponents()

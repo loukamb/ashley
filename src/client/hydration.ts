@@ -10,15 +10,20 @@
 /// #ifdef BROWSER
 import { hydrate, FunctionComponent } from "preact"
 
-import type { SonataComponentProperties } from "./SonataProperties.tsx"
+import type {
+  SonataConfig,
+  SonataComponentProperties,
+} from "@/components/ssr/SonataProperties.tsx"
 
 // Components that need hydration.
 import Footer from "@/components/Footer.tsx"
+import Section from "@/components/Section.tsx"
 
 // Components to be hydrated.
 const toBeHydrated = {
   Footer,
-} as Record<string, FunctionComponent>
+  Section,
+} as Record<string, FunctionComponent<any>>
 
 /**
  * This is an empty web component used to selectively hydrate
@@ -54,27 +59,46 @@ export default function sonataHydrateComponents() {
   }
 
   // sonata-config is guaranteed to have a JSON object.
-  const sonataProps = JSON.parse(sonataPropsElement.textContent!) as Record<
-    string,
-    SonataComponentProperties
-  >
+  const sonataProps = JSON.parse(
+    sonataPropsElement.textContent!
+  ) as SonataConfig
 
   // Alright, let's hydrate the aqueducts.
   for (const [name, Component] of Object.entries(toBeHydrated)) {
     ;(async () => {
-      let params = sonataProps[name]
-      if (params === undefined) {
-        console.warn(
-          `Sonata component "${name}" did not have props. It may break!`
-        )
-        params = {}
-      }
+      const componentPropList = sonataProps[name]
 
       // Find all the roots with the name.
       const roots = document.querySelectorAll(
         `ashley-sonata-aqueduct[name=${name}]`
       )
+
       for (const root of roots) {
+        // Locate parameters.
+        let params: SonataComponentProperties | undefined
+        if (componentPropList !== undefined) {
+          const rootId = parseInt(root.getAttribute("id")!)
+          if (isNaN(rootId)) {
+            console.warn(
+              `Invalid Sonata id "${root.getAttribute(
+                "id"
+              )}" for component "${name}"`
+            )
+          } else {
+            const paramIdx = componentPropList.findIndex((v) => v.id === rootId)
+            if (paramIdx > -1) {
+              params = componentPropList[paramIdx].props
+              componentPropList.splice(paramIdx, 1)
+            }
+          }
+        }
+
+        if (params === undefined) {
+          console.warn(
+            `Sonata component "${name}" did not have props. It may break!`
+          )
+        }
+
         hydrate(Component(params ?? {}), root)
       }
     })().catch(console.error)

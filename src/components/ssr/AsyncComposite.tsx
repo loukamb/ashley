@@ -35,7 +35,7 @@ export function createAsyncContextComposite<T extends AsyncContextSegment[]>(
 
   return {
     ctx: ctx.ctx,
-    enter: (values: ValueParameters, fn: () => Promise<void>) => {
+    enter: (values: ValueParameters, fn: () => Promise<any>) => {
       // TODO: Do we have a better way of doing this? Seems finnicky to
       // expect the order of the array to remain the same cross-context.
       let i = 0

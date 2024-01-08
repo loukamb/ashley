@@ -6,6 +6,8 @@
 /**
  * Icon web component. Sends <iconify-icon> to the client,
  * client hydrates it locally.
+ *
+ * TODO: Implement icon drivers.
  */
 
 import { PreactDOMAttributes, JSX } from "preact"
