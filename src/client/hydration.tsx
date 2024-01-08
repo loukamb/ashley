@@ -65,45 +65,43 @@ export default function sonataHydrateComponents() {
 
   // Alright, let's hydrate the aqueducts.
   for (const [name, Component] of Object.entries(toBeHydrated)) {
-    ;(async () => {
-      const componentPropList = sonataProps[name]
+    const componentPropList = sonataProps[name]
 
-      // Find all the roots with the name.
-      const roots = document.querySelectorAll(
-        `ashley-sonata-aqueduct[name=${name}]`
-      )
+    // Find all the roots with the name.
+    const roots = document.querySelectorAll(
+      `ashley-sonata-aqueduct[name=${name}]`
+    )
 
-      for (const root of roots) {
-        // Locate parameters.
-        let params: SonataComponentProperties | undefined
-        if (componentPropList !== undefined) {
-          const rootId = parseInt(root.getAttribute("id")!)
-          if (isNaN(rootId)) {
-            console.warn(
-              `Invalid Sonata id "${root.getAttribute(
-                "id"
-              )}" for component "${name}"`
-            )
-          } else {
-            const paramIdx = componentPropList.findIndex((v) => v.id === rootId)
-            if (paramIdx > -1) {
-              params = componentPropList[paramIdx].props
-              componentPropList.splice(paramIdx, 1)
-            }
+    for (const root of roots) {
+      // Locate parameters.
+      let params: SonataComponentProperties | undefined
+      if (componentPropList !== undefined) {
+        const rootId = parseInt(root.getAttribute("id")!)
+        if (isNaN(rootId)) {
+          console.warn(
+            `Invalid Sonata id "${root.getAttribute(
+              "id"
+            )}" for component "${name}"`
+          )
+        } else {
+          const paramIdx = componentPropList.findIndex((v) => v.id === rootId)
+          if (paramIdx > -1) {
+            params = componentPropList[paramIdx].props
+            componentPropList.splice(paramIdx, 1)
           }
         }
-
-        if (params === undefined) {
-          console.warn(
-            `Sonata component "${name}" did not have props. It may break!`
-          )
-        }
-
-        console.log(`start ${name}`)
-        hydrate(Component(params ?? {}), root)
-        console.log(`end ${name}`)
       }
-    })().catch(console.error)
+
+      if (params === undefined) {
+        console.warn(
+          `Sonata component "${name}" did not have props. It may break!`
+        )
+      }
+
+      console.log(`start ${name}`)
+      hydrate(<Component {...(params ?? {})} />, root)
+      console.log(`end ${name}`)
+    }
   }
 }
 /// #endif
