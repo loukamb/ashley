@@ -91,6 +91,14 @@ a {
   @include on-scheme(color, colors.$link-light, colors.$link-dark);
 }
 
+button {
+  all: unset;
+
+  cursor: pointer;
+}
+
+// Layout.
+
 #announcements {
   .announcement {
     padding: 1rem;
@@ -136,6 +144,44 @@ a {
     }
   }
 }
+
+.forum-section {
+  .forum-section-header {
+    display: flex;
+    padding: 1rem;
+
+    @include on-scheme(
+      background-color,
+      colors.$bg-light-shade1,
+      colors.$bg-dark-shade1
+    );
+
+    .forum-section-description {
+      .forum-section-name {
+        font-size: 1.2rem;
+        font-weight: bold;
+      }
+    }
+
+    .forum-section-toggle-visibility {
+      display: block;
+      margin-left: auto;
+
+      &.hidden {
+        transform: rotate(180deg);
+      }
+    }
+  }
+}
+
+.section-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  gap: 1rem;
+}
+
+// Internal classes.
 
 ashley-sonata-config {
   display: none;

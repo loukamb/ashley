@@ -1,6 +1,8 @@
 import type { Section } from "@/forums/section.ts"
 import { Sonata } from "./ssr/Sonata.tsx"
 
+import Icon from "./Icon.tsx"
+
 import { useState, useCallback } from "preact/hooks"
 
 function Section({
@@ -36,7 +38,16 @@ function Section({
             <div class="forum-section-description">{src.description}</div>
           )}
         </div>
-        {index === true && <button onClick={toggleSectionDisplay}></button>}
+        {index === true && (
+          <button
+            class={`forum-section-toggle-visibility ${
+              sectionHidden ? "hidden" : ""
+            }`}
+            onClick={toggleSectionDisplay}
+          >
+            <Icon icon="fluent:chevron-circle-down-20-regular" />
+          </button>
+        )}
       </div>
       {!sectionHidden && (
         <div class="forum-section-contents">
