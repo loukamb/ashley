@@ -5,13 +5,18 @@
 
 import { Session } from "@/server/session.ts"
 import { getAnnouncements } from "@/forums/announcement.ts"
+import { getIndexSections } from "@/forums/section.ts"
 
 import Announcement from "@/components/Announcement.tsx"
 import Helmet from "@/components/Helmet.tsx"
+import Section from "@/components/Section.tsx"
 
 export default async function Index({ session }: { session?: Session }) {
   // Retrieve announcements for the index page.
   const announcements = await getAnnouncements("index")
+
+  // Retrieve sections for the index page.
+  const indexSections = await getIndexSections(session)
 
   return (
     <>
@@ -32,6 +37,12 @@ export default async function Index({ session }: { session?: Session }) {
           ))}
         </div>
       )}
+
+      <div class="section-container">
+        {indexSections.map((section) => (
+          <Section key={section.id} src={section} index={true} />
+        ))}
+      </div>
     </>
   )
 }

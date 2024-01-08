@@ -1,4 +1,4 @@
-import { Section } from "@/forums/section.ts"
+import type { Section } from "@/forums/section.ts"
 import { Sonata } from "./ssr/Sonata.tsx"
 
 import { useState, useCallback } from "preact/hooks"

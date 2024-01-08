@@ -4,6 +4,7 @@
  */
 
 import { Thread } from "./thread.ts"
+import { Session } from "@/server/session.ts"
 
 export interface Section {
   /**
@@ -46,4 +47,54 @@ export interface Section {
    * Threads contained in this section. Must be joined in the db query.
    */
   readonly threads?: Thread[]
+}
+
+/**
+ * Retrieve section information for specified ID. Pass `threads` with an object
+ * defining `page` and `count` to get # of threads for page in this section. Returns undefined
+ * if the section ID does not exist or is private (in that case you should 404 the user).
+ * If no session is passed, only publicly-viewable sections will be retrieved.
+ */
+export async function getSection(
+  id: number,
+  session?: Session,
+  threads?: { page: number; count: number }
+): Promise<Section | undefined> {
+  // TODO: Implement.
+
+  return undefined
+}
+
+/**
+ * Retrieve default sections, viewable on the index. Does not retrieve threads!
+ * If no session is passed, only publicly-viewable sections will be retrieved.
+ */
+export async function getIndexSections(session?: Session) {
+  // TODO: Implement.
+
+  return [
+    {
+      id: "-1",
+      name: "Lorem Ipsum",
+      description: "This is a debug section to test layout. Does not exist!",
+      color: "#ff0000",
+      icon: "fluent:bug-20-regular",
+    },
+
+    {
+      id: "-2",
+      name: "Dolor Ameit",
+      description: "This is a debug section to test layout. Does not exist!",
+      color: "#ffff00",
+      icon: "fluent:emoji-smile-slight-20-regular",
+    },
+
+    {
+      id: "-3",
+      name: "Foo Bar",
+      description: "This is a debug section to test layout. Does not exist!",
+      color: "#ffffff",
+      icon: "fluent:emoji-laugh-20-regular",
+    },
+  ] as Section[]
 }
