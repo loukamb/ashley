@@ -23,10 +23,10 @@ import { Session } from "./session.ts"
 import { BaseLogger, ConsoleLogger } from "../logger.ts"
 import { _debugPreferences } from "./preferences.ts"
 import Configuration from "@/config.ts"
-import render from "@/components/pages/Render.tsx" //
+import render from "./render.ts"
 
 // Page templates.
-import Index from "@/components/pages/Index.tsx"
+import Index from "@/pages/Index.tsx"
 
 export class AshleyServer {
   instance: FastifyInstance

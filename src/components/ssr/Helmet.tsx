@@ -9,7 +9,7 @@ import { RenderContextComposite } from "@/server/render.ts"
 import {
   createAsyncContextSegment,
   useAsyncContextComposite,
-} from "./ssr/AsyncComposite.tsx"
+} from "./AsyncComposite.tsx"
 
 type ReportHelmetChildren = (children: ComponentChildren) => void
 

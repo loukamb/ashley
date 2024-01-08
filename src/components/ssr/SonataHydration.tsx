@@ -7,9 +7,10 @@
  * Client only, hydration facilities.
  */
 
+/// #ifdef BROWSER
 import { hydrate, FunctionComponent } from "preact"
 
-import type { SonataComponentProperties } from "../SonataProperties.tsx"
+import type { SonataComponentProperties } from "./SonataProperties.tsx"
 
 // Components that need hydration.
 import Footer from "@/components/Footer.tsx"
@@ -79,3 +80,4 @@ export default function sonataHydrateComponents() {
     })().catch(console.error)
   }
 }
+/// #endif

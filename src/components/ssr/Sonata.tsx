@@ -10,14 +10,14 @@
 
 import { FunctionComponent } from "preact"
 
-import isBrowser from "../IsBrowser.ts"
+import isBrowser from "./IsBrowser.ts"
 
 /// #ifdef !BROWSER
-import { RenderContextComposite } from "../pages/Render.tsx"
+import { RenderContextComposite } from "@/server/render.ts"
 import {
   createAsyncContextSegment,
   useAsyncContextComposite,
-} from "../AsyncComposite.tsx"
+} from "./AsyncComposite.tsx"
 
 import SonataAqueduct from "./SonataAqueduct.tsx"
 import { SonataComponentProperties } from "./SonataProperties.tsx"

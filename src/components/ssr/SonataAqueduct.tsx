@@ -5,7 +5,7 @@
 
 import { ComponentChildren, JSX } from "preact"
 
-import isBrowser from "../IsBrowser.ts"
+import isBrowser from "./IsBrowser.ts"
 
 export default function SonataAqueduct({
   name,

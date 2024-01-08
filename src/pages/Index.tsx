@@ -6,8 +6,8 @@
 import { Session } from "@/server/session.ts"
 import { getAnnouncements } from "@/forums/announcement.ts"
 
-import Announcement from "../Announcement.tsx"
-import Helmet from "../Helmet.tsx"
+import Announcement from "@/components/Announcement.tsx"
+import Helmet from "@/components/Helmet.tsx"
 
 export default async function Index({ session }: { session?: Session }) {
   // Retrieve announcements for the index page.

@@ -6,18 +6,18 @@
 import { Session } from "@/server/session.ts"
 import { BaseLogger } from "@/logger.ts"
 
-import { HelmetContext } from "../Helmet.tsx"
-import { SonataContext } from "../ssr/Sonata.tsx"
+import { HelmetContext } from "@/components/Helmet.tsx"
+import { SonataContext } from "@/components/ssr/Sonata.tsx"
 import {
   SonataComponentProperties,
   SonataConfig,
-} from "../ssr/SonataProperties.tsx"
+} from "@/components/ssr/SonataProperties.tsx"
 
-import { createAsyncContextComposite } from "../AsyncComposite.tsx"
+import { createAsyncContextComposite } from "@/components/ssr/AsyncComposite.tsx"
 
 import Configuration from "@/config.ts"
 import { ReadonlyPreferences } from "@/server/preferences.ts"
-import Layout from "./Layout.tsx"
+import Layout from "@/pages/Layout.tsx"
 
 import { ComponentChildren, JSX } from "preact"
 import { renderToString } from "preact-render-to-string"
