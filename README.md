@@ -3,6 +3,8 @@
 
 **ashley** is general purpose, public domain forum software. It aims to be simple, correct, consistent, and complete. It is both for tightly-knit communities with a lot of ongoing discussion, and for existing projects in need of a support platform.
 
+**[➔ Ashley complements Lamb, the straightforward, extensible, zero configuration public domain static site generator](https://github.com/mblouka/lamb)** that aims to make your life easier and offer (mostly) everything you need out of the box. We highly recommend you check it out!
+
 ### Table of Contents
 
 - [Overview](#overview)
@@ -11,6 +13,7 @@
 - [Philosophy](#philosophy)
 - [License](#license)
 
+> [!IMPORTANT]
 > Ashley is heavy **WIP** software and not ready for production. You shouldn't use this as anything but a toy. This document serves as a roadmap, and not necessarily as a list of currently available features. Do not use for anything serious until 1.0 has been released.
 
 # Overview
